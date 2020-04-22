@@ -49,6 +49,8 @@ public class Gantt extends PApplet
 		float left = width * 0.05f;
 		//height
 		float h = height * 0.1f;
+		//There will be 30 numbers ranging from 1 - 30 on top of each line
+		int nums = 30;
 
         for(int i = 0 ; i < tasks.size() ; i++){
             
@@ -66,8 +68,8 @@ public class Gantt extends PApplet
 		
 		//Drawing the lines
 		stroke(255);
-		for(int i = 1;i <= 30;i++){
-			float x = map(i, -2, 30, border, width - border);
+		for(int i = 1;i <= nums;i++){
+			float x = map(i, 0, nums, border, width - border);
 			line(x, border, x, height - border); 
 			text(i, x, border / 2);
 		}
@@ -83,25 +85,25 @@ public class Gantt extends PApplet
 			float total = task.getEnd() - task.getStart();
 			fill(i * cGap, 255, 255);
 			//Each rectangle will start at the start of each in the csv file 
-			float x = map(task.getStart(), -2, 30, border, width - border);
+			float x = map(task.getStart(), 0, 30, border, width - border);
 			float y = map(i, 0, tasks.size(), left + 55, height - border);
-			//Each line is 20 pixels in width on the screen so we multiply to get
+			//Each line is 22 pixels in width on the screen so we multiply to get
 			//each rectangle passing the correct number of lines
-			rect(x, y, total * 20, h/2); 	
+			rect(x, y, total * 22, h/2); 	
 		}
 	}
 
 	public void mousePressed()
 	{
-		float border = width * 0.1f;
+		//float border = width * 0.1f;
 		float left = width * 0.05f;
 		float h = height * 0.1f;
 		for(int i = 0;i < tasks.size();i++){
 			Task t = tasks.get(i);
-			float x = map(t.getStart(), -2, 30, border, width - border);
-			float y = map(i, 0, tasks.size(), left + 55, height - border);
+			//float x = map(t.getStart(), 0, 30, border, width - border);
+			float y = map(i, 0, tasks.size(), left + 55, width - height);
 			if(mouseX > t.getStart() && mouseX < (t.getEnd() - t.getStart())*20 
-				&& mouseY > y && mouseY < h/2){
+				&& mouseY > y && mouseY < y + h){
 				System.out.println("Clicked");
 			}
 		}
