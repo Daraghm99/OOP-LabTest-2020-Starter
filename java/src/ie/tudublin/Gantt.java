@@ -100,7 +100,7 @@ public class Gantt extends PApplet
 			Task t = tasks.get(i);
 			float x = map(t.getStart(), -2, 30, border, width - border);
 			float y = map(i, 0, tasks.size(), left + 55, height - border);
-			if(mouseX > x && mouseX < left - 10 
+			if(mouseX > t.getStart() && mouseX < (t.getEnd() - t.getStart())*20 
 				&& mouseY > y && mouseY < h/2){
 				System.out.println("Clicked");
 			}
@@ -111,7 +111,7 @@ public class Gantt extends PApplet
 
 	public void mouseDragged()
 	{
-		println("Mouse dragged");
+		//println("Mouse dragged");
 	}
 
 	
