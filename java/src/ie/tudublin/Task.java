@@ -10,6 +10,7 @@ public class Task {
     private int start;
     private int end;
 
+    //Constuctor that takes in our initial values and assigns them to fields
     public Task(String task, int start, int end){
 
         this.task = task;
@@ -17,8 +18,9 @@ public class Task {
         this.end = end;
     }
 
+    //Creating our constructer that takes a processing TableRow as a field 
     public Task(TableRow tr) {
-        this(tr.getString("task"), tr.getInt("start"), tr.getInt("end"));
+        this(tr.getString("Task"), tr.getInt("Start"), tr.getInt("End"));
     }
 
     //Generating our getters and setters
