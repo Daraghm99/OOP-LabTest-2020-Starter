@@ -40,11 +40,62 @@ public class Gantt extends PApplet
 			System.out.println(t);
 		}
 	}
+
+	public void displayTasks(){		
 	
+		//Calculating size of the border
+        float border = width * 0.1f;
+        //left border
+		float left = width * 0.05f;
+		//height
+		float h = height * 0.1f;
+
+        for(int i = 0 ; i < tasks.size() ; i++){
+            
+            //Use .get to get an element from an array list
+            Task t = tasks.get(i);
+
+			//Figuring out the y coordanite for each task
+            float y = map(i, 0, tasks.size(), border, height - border);
+            //text will be white
+            fill(255);
+            textAlign(LEFT, CENTER);
+            //Otputting each task
+            text(t.getTask(), left - 10, y + (h/2));	
+		}
+		
+		//Drawing the lines
+		stroke(255);
+		for(int i = 1;i <= 30;i++){
+			float x = map(i, -5, 30, border, width - border);
+			line(x, border, x, height - border); 
+			text(i, x, border / 2);
+		}
+
+		
+		//Drawing the boxes
+		colorMode(HSB);
+		noStroke();
+		float cGap = 255 / (float) tasks.size();
+		for(int i = 0;i < tasks.size();i++){
+			Task task = tasks.get(i);
+			//Total takes in the length of each rectangle we must plot
+			float total = task.getEnd() - task.getStart();
+			fill(i * cGap, 255, 255);
+			//Each rectangle will start at the start of each in the csv file 
+			float x = map(task.getStart(), -5, 30, border, width - border);
+			float y = map(i, 0, tasks.size(), left + 55, height - border);
+			//Each line is 20 pixels in width on the screen so we multiply to get
+			//each rectangle passing the correct number of lines
+			rect(x, y, total * 20, h/2); 	
+		}
+	}
+
 	public void mousePressed()
 	{
-		println("Mouse pressed");	
+		println("Mouse pressed");
 	}
+	
 
 	public void mouseDragged()
 	{
@@ -60,7 +111,9 @@ public class Gantt extends PApplet
 	}
 	
 	public void draw()
-	{			
+	{	
 		background(0);
+		colorMode(HSB);		
+		displayTasks();
 	}
 }
